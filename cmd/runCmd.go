@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/osteele/liquid"
 	"github.com/spf13/cobra"
@@ -36,13 +37,31 @@ var runCmd = &cobra.Command{
 		if len(args) < 1 {
 			log.Fatal("Usage: myapp process <config.yaml>")
 		}
-		configFile := args[0]
+		workflowFile := args[0]
 
-		config := readConfig(configFile)
+		workflow := readConfig(
+			filepath.Join(
+				"_gmx",
+				"workflows",
+				workflowFile,
+			),
+		)
 
-		for _, item := range config.Items {
-			data := readJSON(item.DataFile)
-			templateContent := readFile(item.TemplateFile)
+		for _, item := range workflow.Items {
+			data := readJSON(
+				filepath.Join(
+					"_gmx",
+					"data",
+					item.DataFile,
+				),
+			)
+			templateContent := readFile(
+				filepath.Join(
+					"_gmx",
+					"templates",
+					item.TemplateFile,
+				),
+			)
 
 			// Parse the Liquid template
 			output, err := liquid.NewEngine().ParseAndRenderString(templateContent, data)

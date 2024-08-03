@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"github.com/spf13/cobra"
 )
@@ -17,44 +18,61 @@ var initCmd = &cobra.Command{
 	Short: "Initialize sample files",
 	Long:  `Sets up workflow, data and template files.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fileName := "data.json"
-		content := `
-{
+		err := createFolderIfNotExists("_gmx")
+		if err != nil {
+			fmt.Println("Error creating folder:", err)
+			return
+		}
+		err = createFolderIfNotExists(filepath.Join("_gmx", "data"))
+		if err != nil {
+			fmt.Println("Error creating folder:", err)
+			return
+		}
+		err = createFolderIfNotExists(filepath.Join("_gmx", "templates"))
+		if err != nil {
+			fmt.Println("Error creating folder:", err)
+			return
+		}
+		err = createFolderIfNotExists(filepath.Join("_gmx", "workflows"))
+		if err != nil {
+			fmt.Println("Error creating folder:", err)
+			return
+		}
+
+		sampleDataPath := filepath.Join("_gmx", "data", "data.json")
+		content := `{
   "title": "Hello, World!",
   "description": "This is a sample description."
 }`
 		// Call the function to create the file with content
-		err := createFileWithContent(fileName, content)
+		err = createFileWithContent(sampleDataPath, content)
 		if err != nil {
 			fmt.Println("Error creating file:", err)
 			return
 		}
 
-		fileName = "workflow.yaml"
-		content = `
-items:
+		sampleWorkflowPath := filepath.Join("_gmx", "workflows", "workflow.yaml")
+		content = `items:
   - dataFile: data.json
     templateFile: template.liquid
-    outputFile: output1.txt		
-		`
+    outputFile: output1.txt`
 		// Call the function to create the file with content
-		err = createFileWithContent(fileName, content)
+		err = createFileWithContent(sampleWorkflowPath, content)
 		if err != nil {
 			fmt.Println("Error creating file:", err)
 			return
 		}
 
-		fileName = "template.liquid"
-		content = `
-<h1>{{ title }}</h1>
-<p>{{ description }}</p>	
-		`
+		sampleTemplatePath := filepath.Join("_gmx", "templates", "template.liquid")
+		content = `<h1>{{ title }}</h1>
+<p>{{ description }}</p>`
 		// Call the function to create the file with content
-		err = createFileWithContent(fileName, content)
+		err = createFileWithContent(sampleTemplatePath, content)
 		if err != nil {
 			fmt.Println("Error creating file:", err)
 			return
 		}
+		fmt.Println("gogenmax Initialized.")
 	},
 }
 
@@ -72,5 +90,17 @@ func createFileWithContent(fileName string, content string) error {
 		return err
 	}
 
+	return nil
+}
+
+func createFolderIfNotExists(path string) error {
+	// Check if the folder already exists
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		// Folder does not exist, create it
+		err := os.MkdirAll(path, os.ModePerm)
+		if err != nil {
+			return fmt.Errorf("failed to create folder: %w", err)
+		}
+	}
 	return nil
 }
