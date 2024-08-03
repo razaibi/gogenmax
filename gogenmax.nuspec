@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>gogenmax</id>
+    <version>0.0.1</version>
+    <title>gogenmax</title>
+    <authors>Raza Balbale</authors>
+    <owners>Raza Balbale</owners>
+    <description>A Golang based code generator.</description>
+    <releaseNotes>Initial release</releaseNotes>
+    <projectUrl>https://github.com/razaibi/gogenmax</projectUrl>
+    <tags>cli go gogenmax genmax code generator</tags>
+  </metadata>
+  <files>
+    <file src="gmx.exe" target="tools\gmx.exe" />
+  </files>
+</package>
