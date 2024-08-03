@@ -20,3 +20,4 @@ The following methods are supported in the template:
 |Camel case| `{{ "Hello World" \| camelcase }}`|
 |Snake case| `{{ "Hello World" \| snakecase }}`|
 |Pascale case| `{{ "hello world" \| pascalecase }}`|
+|UUID Generation| `{{ "" \| uuid }}`|

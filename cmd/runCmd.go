@@ -71,6 +71,7 @@ var runCmd = &cobra.Command{
 			engine.RegisterFilter("camelcase", logic.ConvertToCamelCase)
 			engine.RegisterFilter("snakecase", logic.ConvertToSnakeCase)
 			engine.RegisterFilter("pascalecase", logic.ConvertToPascaleCase)
+			engine.RegisterFilter("uuid", logic.GenerateUUID)
 
 			output, err := engine.ParseAndRenderString(templateContent, data)
 			if err != nil {

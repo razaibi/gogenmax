@@ -4,6 +4,7 @@ go 1.22.3
 
 require (
 	github.com/gertd/go-pluralize v0.2.1
+	github.com/google/uuid v1.6.0
 	github.com/iancoleman/strcase v0.3.0
 	github.com/osteele/liquid v1.4.0
 	github.com/spf13/cobra v1.8.1
