@@ -23,3 +23,4 @@ The following methods are supported in the template:
 |UUID Generation| `{{ "" \| uuid }}`|
 |Generate secret in 16 bit - hexadecimal| `{{ "" \| secret }}`|
 |Generate secret in 64 bit - hexadecimal| `{{ "" \| secret_complex }}`|
+|Read value from env file| `{{ "MY_CONFIG_KEY" \| config: ".env" }}`|

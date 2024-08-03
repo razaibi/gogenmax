@@ -74,6 +74,7 @@ var runCmd = &cobra.Command{
 			engine.RegisterFilter("uuid", logic.GenerateUUID)
 			engine.RegisterFilter("secret", logic.Generate16bitSecret)
 			engine.RegisterFilter("secret_complex", logic.Generate64BitSecret)
+			engine.RegisterFilter("env", logic.ReadEnvValue)
 
 			output, err := engine.ParseAndRenderString(templateContent, data)
 			if err != nil {
