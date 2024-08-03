@@ -67,6 +67,10 @@ var runCmd = &cobra.Command{
 			// Parse the Liquid template
 			engine := liquid.NewEngine()
 			engine.RegisterFilter("pluralize", logic.Pluralize)
+			engine.RegisterFilter("kebabcase", logic.ConvertToKebabCase)
+			engine.RegisterFilter("camelcase", logic.ConvertToCamelCase)
+			engine.RegisterFilter("snakecase", logic.ConvertToSnakeCase)
+
 			output, err := engine.ParseAndRenderString(templateContent, data)
 			if err != nil {
 				log.Fatalf("Failed to render template: %v", err)
