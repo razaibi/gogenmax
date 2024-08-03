@@ -70,6 +70,7 @@ var runCmd = &cobra.Command{
 			engine.RegisterFilter("kebabcase", logic.ConvertToKebabCase)
 			engine.RegisterFilter("camelcase", logic.ConvertToCamelCase)
 			engine.RegisterFilter("snakecase", logic.ConvertToSnakeCase)
+			engine.RegisterFilter("pascalecase", logic.ConvertToPascaleCase)
 
 			output, err := engine.ParseAndRenderString(templateContent, data)
 			if err != nil {
