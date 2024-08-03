@@ -24,12 +24,12 @@ type Item struct {
 }
 
 func init() {
-	rootCmd.AddCommand(processCmd)
+	rootCmd.AddCommand(runCmd)
 }
 
 // processCmd represents the process command
-var processCmd = &cobra.Command{
-	Use:   "process",
+var runCmd = &cobra.Command{
+	Use:   "run",
 	Short: "Process data and template files",
 	Long:  `Reads a configuration YAML file, processes the specified data and template files, and generates output files.`,
 	Run: func(cmd *cobra.Command, args []string) {
