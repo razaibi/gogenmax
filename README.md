@@ -21,3 +21,5 @@ The following methods are supported in the template:
 |Snake case| `{{ "Hello World" \| snakecase }}`|
 |Pascale case| `{{ "hello world" \| pascalecase }}`|
 |UUID Generation| `{{ "" \| uuid }}`|
+|Generate secret in 16 bit - hexadecimal| `{{ "" \| secret }}`|
+|Generate secret in 64 bit - hexadecimal| `{{ "" \| secret_complex }}`|
