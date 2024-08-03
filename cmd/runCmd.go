@@ -3,6 +3,7 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
+	"gogenmax/logic"
 	"log"
 	"os"
 	"path/filepath"
@@ -64,7 +65,9 @@ var runCmd = &cobra.Command{
 			)
 
 			// Parse the Liquid template
-			output, err := liquid.NewEngine().ParseAndRenderString(templateContent, data)
+			engine := liquid.NewEngine()
+			engine.RegisterFilter("pluralize", logic.Pluralize)
+			output, err := engine.ParseAndRenderString(templateContent, data)
 			if err != nil {
 				log.Fatalf("Failed to render template: %v", err)
 			}
