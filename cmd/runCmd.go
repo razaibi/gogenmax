@@ -76,6 +76,7 @@ var runCmd = &cobra.Command{
 			engine.RegisterFilter("secret_complex", logic.Generate64BitSecret)
 			engine.RegisterFilter("env", logic.ReadEnvValue)
 			engine.RegisterFilter("path", logic.JoinPath)
+			engine.RegisterFilter("lower_first", logic.LowerFirst)
 
 			output, err := engine.ParseAndRenderString(templateContent, data)
 			if err != nil {

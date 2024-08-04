@@ -25,3 +25,4 @@ The following methods are supported in the template:
 |Generate secret in 64 bit - hexadecimal| `{{ "" \| secret_complex }}`|
 |Read value from env file| `{{ "MY_CONFIG_KEY" \| config: ".env" }}`|
 |Join strings to make a file path.| `{{ "home" \| joinpath: ["documents", "file.txt"] }}`|
+|Convert first character to lower case.| ` {{ "Hello World" \| lowerfirst }}`|
