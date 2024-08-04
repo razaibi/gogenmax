@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/osteele/liquid"
 	"github.com/spf13/cobra"
@@ -84,14 +85,34 @@ var runCmd = &cobra.Command{
 			}
 
 			// Write the output to the specified file
-			os.WriteFile(item.OutputFile, []byte(output), 0644)
-			if err != nil {
+			fileErr := writeFileWithCustomSeparator(item.OutputFile, []byte(output), 0644)
+			if fileErr != nil {
 				log.Fatalf("Failed to write output file: %v", err)
 			}
 
 			fmt.Printf("Output generated successfully for %s!\n", item.OutputFile)
 		}
 	},
+}
+
+func writeFileWithCustomSeparator(filePath string, data []byte, perm os.FileMode) error {
+	// Replace custom path separator with OS-specific path separator
+	normalizedPath := strings.ReplaceAll(filePath, ">", string(os.PathSeparator))
+
+	// Get the directory path
+	dirPath := filepath.Dir(normalizedPath)
+
+	// Create directories if they don't exist
+	if err := os.MkdirAll(dirPath, os.ModePerm); err != nil {
+		return fmt.Errorf("failed to create directories: %w", err)
+	}
+
+	// Write the file
+	if err := os.WriteFile(normalizedPath, data, perm); err != nil {
+		return fmt.Errorf("failed to write file: %w", err)
+	}
+
+	return nil
 }
 
 // readConfig reads and parses the YAML configuration file
